@@ -86,7 +86,15 @@
     <Compile Include="Assets\Kazel\Scripts\Player.cs" />
     <Compile Include="Assets\Kazel\Scripts\Stat.cs" />
     <Compile Include="Assets\Scripts\HelloWorld.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\Enemy\EnemyGenerator.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\Enemy\EnemyMovementAI.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\HealthComponent.cs" />
     <Compile Include="Assets\Scripts\MarcusSeigman\ItemPlacement\PlaceItem.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\MainMenuScene.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\PlayerScripts\MeleeWeapon.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\PlayerScripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\PlayerScripts\PlayerDataHolder.cs" />
+    <Compile Include="Assets\Scripts\MarcusSeigman\ProjectileScripts\ProjectileBehavior.cs" />
     <Compile Include="Assets\Scripts\MarcusSeigman\ResourceSpawningSystem\ResourceSpawning.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

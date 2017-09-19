@@ -8,7 +8,7 @@ public class PlaceItem : MonoBehaviour
     public Camera MainCamera;
     public GameObject MouseFollowObj;
     public GameObject ItemTransparent;
-    public Vector3 mousePosition;
+       public Vector3 mousePosition;
     public GameObject TestFloorObject;
     public GameObject TestWallObject;
     public GameObject WallObjectPos;
@@ -29,14 +29,19 @@ public class PlaceItem : MonoBehaviour
         {
             print("hitting 1");
             inFloorPlacement = true;
+            inWallPlacement = false;
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             print("hitting 2");
             inWallPlacement = true;
+            inFloorPlacement = false;
         }
         if (inFloorPlacement)
         {
+            inWallPlacement = false;
+            TestFloorObject.SetActive(true);
+            TestWallObject.SetActive(false);
             MouseFollowObj.SetActive(true);
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //MouseFollowObj.transform.position = new Vector3(mousePosition.x, 1, mousePosition.z);
@@ -66,6 +71,9 @@ public class PlaceItem : MonoBehaviour
         }
         if(inWallPlacement)
         {
+            inFloorPlacement = false;
+            TestWallObject.SetActive(true);
+            TestFloorObject.SetActive(false);
             MouseFollowObj.SetActive(true);
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //MouseFollowObj.transform.position = new Vector3(mousePosition.x, 1, mousePosition.z);
@@ -93,7 +101,16 @@ public class PlaceItem : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                Instantiate(TestWallObject, new Vector3(WallObjectPos.transform.position.x, 0, WallObjectPos.transform.position.z), MouseFollowObj.transform.rotation);
+                RaycastHit hit2;
+                if (Physics.Raycast(WallObjectPos.transform.position, -Vector3.up, out hit2))
+                {
+                    if (hit2.collider.gameObject.tag != "WallItem")
+                    {
+                        Debug.Log(hit2.collider.tag);
+                        Debug.DrawRay(WallObjectPos.transform.position, -Vector3.up);
+                        Instantiate(TestWallObject, new Vector3(WallObjectPos.transform.position.x, 0, WallObjectPos.transform.position.z), MouseFollowObj.transform.rotation);
+                    }
+                }
             }
             else if (Input.GetKeyDown(KeyCode.Mouse1))
             {

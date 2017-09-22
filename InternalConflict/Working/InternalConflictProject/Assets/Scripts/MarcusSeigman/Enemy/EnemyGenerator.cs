@@ -26,6 +26,11 @@ using System.Collections;
 
 public class EnemyGenerator : MonoBehaviour {
 
+
+    public bool posZ;
+    public bool negZ;
+    public bool posX;
+    public bool negX;
     //Sets the direction and distance of the generator's movement.
     [SerializeField]
     Vector3 directions = Vector3.zero;
@@ -73,11 +78,43 @@ public class EnemyGenerator : MonoBehaviour {
     float burstStagger = .5f;
 
     public bool waveFighter;
+
+    public Camera CameraObject;
     // Use this for initialization
 
     void Start () {
+
+        Vector3 screenPosition = CameraObject.WorldToScreenPoint(gameObject.transform.position);
+        if (posX)
+        {
+           
+            screenPosition.x = 0;
+            gameObject.transform.position = CameraObject.ScreenToWorldPoint(screenPosition);
+        }
+        if (negX)
+        {
+        
+            screenPosition.x = Screen.width;
+            gameObject.transform.position = CameraObject.ScreenToWorldPoint(screenPosition);
+        }
+        if (posZ)
+        {
+          
+            screenPosition.y = 0;
+            gameObject.transform.position = CameraObject.ScreenToWorldPoint(screenPosition);
+        }
+        if (negZ)
+        {
+           
+            screenPosition.y = Screen.height;
+            gameObject.transform.position = CameraObject.ScreenToWorldPoint(screenPosition);
+        }
+        //Allows the player to move in the Y axis.
+       
+        
         //sets the initial pos, and if it is a burst spawner, starts the spawn count down.
         initialPos = transform.position;
+
         if (enemyBurstSpawn == true)
         {
             InvokeRepeating("SpawnBurst", burstDelay, burstStagger);
@@ -93,6 +130,10 @@ public class EnemyGenerator : MonoBehaviour {
         if (directions.x > 0)
         {
             offset.x = Mathf.PingPong(moveTime, directions.x);
+        }
+        if (directions.z > 0)
+        {
+            offset.z = Mathf.PingPong(moveTime, directions.z);
         }
         transform.position = initialPos + offset;
 

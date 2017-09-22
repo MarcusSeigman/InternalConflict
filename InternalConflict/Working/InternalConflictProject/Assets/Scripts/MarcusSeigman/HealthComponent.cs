@@ -16,6 +16,14 @@ public class HealthComponent : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (isPlayer)
+        {
+            maxHealth = GameObject.FindObjectOfType<PlayerDataHolder>().GetComponent<PlayerDataHolder>().health;
+        }
+        if(isEnemy)
+        {
+            maxHealth = Mathf.FloorToInt( maxHealth * GameObject.FindObjectOfType<EnemyDataHolder>().GetComponent<EnemyDataHolder>().multiplier);
+        }
         curHealth = maxHealth;
 	}
 	
